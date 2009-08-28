@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
+require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
+
+TextMate.save_current_document
+
+unless ENV['PIG_HOME'] =~ /^\s*$/
+	TextMate::Executor.run("#{ENV['PIG_HOME']}/bin/pig", '-x', 'local', ENV["TM_FILEPATH"])
+else
+	puts "PIG_HOME not set"
+end</string>
+	<key>input</key>
+	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>@r</string>
+	<key>name</key>
+	<string>Run</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.pig</string>
+	<key>uuid</key>
+	<string>2FB16B0C-9942-4577-AAC0-2786E882B883</string>
+</dict>
+</plist>
