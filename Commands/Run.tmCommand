@@ -5,18 +5,11 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby
+	<string>#!/bin/sh
 
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
+export TM_RUBY=$(type -p "${TM_RUBY:-ruby}")
 
-TextMate.save_current_document
-
-unless ENV['PIG_HOME'] =~ /^\s*$/
-	TextMate::Executor.run("#{ENV['PIG_HOME']}/bin/pig", '-x', 'local', ENV["TM_FILEPATH"])
-else
-	puts "PIG_HOME not set"
-end</string>
+"${TM_RUBY}" -KU -- "$TM_BUNDLE_SUPPORT/lib/run.rb"</string>
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>
