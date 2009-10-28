@@ -213,13 +213,20 @@ private
 
   def format_describe(str)
     _, relation_name, fields = *str.match(/^(\w[\w\d_]+):\s*\{(.*)\}$/)
-
+    
     field_list = ""
-
-    fields.scan(/(\w[\w\d_]+):\s*(\w+),?/) do |name, type|
-      field_list += "<dt>#{name}</dt><dd>#{type}</dd>"
+    
+    scalar_field_pattern = '(\w[\w\d_]+):\s*(\w+),?'
+    tuple_field_pattern  = '(\w[\w\d_]+):\s*[\(|\{]'
+    
+    fields.scan(/#{scalar_field_pattern}|#{tuple_field_pattern}/) do |scalar_field_name, scalar_field_type, tuple_field_name|
+      if scalar_field_name.nil?
+        field_list += "</dl><h2 class=\"sub-relation-name\">#{tuple_field_name}</h2><dl class=\"relation-fields\">"
+      else
+        field_list += "<dt>#{scalar_field_name}</dt><dd>#{scalar_field_type}</dd>"
+      end
     end
-  
+    
     "<div class=\"out\"><h1 class=\"relation-name\">#{relation_name}</h1><dl class=\"relation-fields\">#{field_list}</dl></div>"
   end
   

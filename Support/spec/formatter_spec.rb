@@ -54,6 +54,19 @@ describe Formatter do
     formatted_str.should include('<dt>ad_id</dt><dd>chararray</dd>')
   end
   
+  it 'formats a hierarchical relation correctly' do
+    str = 'grouped_by_keys: {group: (date: chararray,ad_id: chararray,api_key: chararray,category: chararray,segment: chararray),report_metrics: {date: chararray,ad_id: chararray,api_key: chararray,category: chararray,segment: chararray,exposures: int,impressions: int,engagements: int,click_thrus: int,indeterminate_visibility: int,session_time: int,visible_time: int,engagement_time: int}}'
+    
+    formatted_str = @formatter.format_line(str, :out)
+    formatted_str.should include('<h1 class="relation-name">grouped_by_keys</h1>')
+    formatted_str.should include('<h2 class="sub-relation-name">group</h2>')
+    formatted_str.should include('<h2 class="sub-relation-name">report_metrics</h2>')
+    formatted_str.should include('<dt>date</dt><dd>chararray</dd>')
+    formatted_str.should include('<dt>ad_id</dt><dd>chararray</dd>')
+    formatted_str.should include('<dt>exposures</dt><dd>int</dd>')
+    formatted_str.should include('<dt>session_time</dt><dd>int</dd>')
+  end
+  
   it 'formats a result dump row as a table row' do
     str = '(2009-08-04,0a2fcc90281ae6caa138f5a8edc94d77,cpbeurope_ri,ClearBlue Agglossningskalender 980x120,81088L,73541L,2617L,0L,4764283L,4320601L,367864L)'
     
