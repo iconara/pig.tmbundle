@@ -13,17 +13,41 @@
 	<array>
 		<dict>
 			<key>match</key>
-                        <string>\b(?i:all|and|as|asc|by|cogroup|cross|debug|default_parallel|define|desc|describe|distinct|dump|explain|filter|flatten|foreach|generate|group|if|illustrate|inner|into|is|job.name|join|limit|load|matches|not|null|or|order|outer|parallel|register|set|split|store|stream|stream.skippath|through|union|using)\b</string>
+			<string>\b(?i:all|and|as|asc|by|cogroup|cross|debug|default_parallel|define|desc|describe|distinct|dump|explain|filter|flatten|foreach|generate|group|if|illustrate|inner|into|is|job.name|join|limit|load|matches|not|null|or|order|outer|parallel|register|set|split|store|stream|stream.skippath|through|union|using)\b</string>
 			<key>name</key>
 			<string>keyword.operator.pig</string>
 		</dict>
 		<dict>
 			<key>begin</key>
 			<string>--</string>
+			<key>captures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.pig</string>
+				</dict>
+			</dict>
 			<key>end</key>
 			<string>$</string>
 			<key>name</key>
 			<string>comment.line.double-dash.pig</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>/\*</string>
+			<key>captures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.pig</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\*/</string>
+			<key>name</key>
+			<string>comment.block.pig</string>
 		</dict>
 		<dict>
 			<key>begin</key>
